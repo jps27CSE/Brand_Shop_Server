@@ -76,6 +76,14 @@ async function run() {
       res.send(result);
     });
 
+    app.get("/cart/:email", async (req, res) => {
+      const email = req.params.email;
+      const query = { email: email };
+      const cursor = CartCollection.find(query);
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+
     app.post("/cart", async (req, res) => {
       const user = req.body;
       const result = await CartCollection.insertOne(user);
