@@ -31,6 +31,13 @@ async function run() {
       res.send(result);
     });
 
+    app.get("/brand/:brand", async (req, res) => {
+      const brand = req.params.brand;
+      const data = ProductCollection.find({ brand: brand });
+      const result = await data.toArray();
+      res.send(result);
+    });
+
     app.post("/addProduct", async (req, res) => {
       const product = req.body;
       const result = await ProductCollection.insertOne(product);
