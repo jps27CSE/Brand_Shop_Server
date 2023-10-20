@@ -6,7 +6,11 @@ const app = express();
 const cors = require("cors");
 const port = process.env.PORT || 5000;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://brandshop-b6378.web.app", // Allow requests from your local development server
+  })
+);
 app.use(express.json());
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
@@ -21,7 +25,7 @@ const client = new MongoClient(process.env.MONGO_URI, {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+    // await client.connect();
     const database = client.db("insertDB");
     const ProductCollection = database.collection("products");
     const CartCollection = database.collection("cart");
